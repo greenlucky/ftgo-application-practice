@@ -1,8 +1,10 @@
 package com.devopslam.ftgo.orderservice.domain;
 
-import com.devopslam.common.Money;
+import com.devopslam.common.domain.Money;
 import com.devopslam.ftgo.orderservice.events.OrderLineItem;
+import com.devopslam.ftgo.orderservice.events.OrderLineItems;
 import com.devopslam.ftgo.orderservice.events.OrderState;
+import com.devopslam.ftgo.orderservice.events.PaymentInformation;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,7 +21,7 @@ public class Order {
     private Long version;
 
     @Enumerated(EnumType.STRING)
-    private OrderState state;
+    private OrderState state =  OrderState.APPROVAL_PENDING;;
 
     @NotNull
     private String customerId;
@@ -28,9 +30,7 @@ public class Order {
     private String restaurantId;
 
     @Embedded
-    @ElementCollection
-    @CollectionTable(name = "order_line_times")
-    private List<OrderLineItem> orderLineItems;
+    private OrderLineItems orderLineItems;
 
     @Embedded
     private PaymentInformation paymentInformation;
@@ -47,15 +47,24 @@ public class Order {
     public Order(String customerId, String restaurantId, List<OrderLineItem> orderLineItems) {
         this.customerId = customerId;
         this.restaurantId = restaurantId;
-        this.orderLineItems = orderLineItems;
+        this.orderLineItems = new OrderLineItems(orderLineItems);
     }
 
     public Order(String orderId, String customerId, String restaurantId, List<OrderLineItem> orderLineItems) {
         this.id = orderId;
         this.customerId = customerId;
         this.restaurantId = restaurantId;
+        this.orderLineItems = new OrderLineItems(orderLineItems);
+    }
+
+    public Order(String orderId, String customerId, String restaurantId, OrderLineItems orderLineItems) {
+        this.id = orderId;
+        this.customerId = customerId;
+        this.restaurantId = restaurantId;
         this.orderLineItems = orderLineItems;
     }
+
+
 
     public String getId() {
         return id;
@@ -89,11 +98,11 @@ public class Order {
         this.restaurantId = restaurantId;
     }
 
-    public List<OrderLineItem> getOrderLineItems() {
+    public OrderLineItems getOrderLineItems() {
         return orderLineItems;
     }
 
-    public void setOrderLineItems(List<OrderLineItem> orderLineItems) {
+    public void setOrderLineItems(OrderLineItems orderLineItems) {
         this.orderLineItems = orderLineItems;
     }
 
@@ -121,6 +130,18 @@ public class Order {
         this.orderMinimum = orderMinimum;
     }
 
+    public Money getOrderMinimum() {
+        return orderMinimum;
+    }
+
+    public void setOrderMinimum(Money orderMinimum) {
+        this.orderMinimum = orderMinimum;
+    }
+
+    public Money getOrderTotal() {
+        return orderLineItems.orderTotal();
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -135,4 +156,6 @@ public class Order {
                 ", orderMinimun=" + orderMinimum +
                 '}';
     }
+
+
 }

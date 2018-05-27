@@ -1,6 +1,6 @@
 package com.devopslam.ftgo.orderservice.events;
 
-import com.devopslam.common.Money;
+import com.devopslam.common.domain.Money;
 
 import javax.persistence.Embeddable;
 
@@ -9,6 +9,7 @@ public class OrderLineItem {
     private int quantity;
     private String menuItemId;
     private String name;
+    private Money price;
 
     public OrderLineItem() {
     }
@@ -17,6 +18,7 @@ public class OrderLineItem {
         this.menuItemId = menuItemId;
         this.name = name;
         this.quantity = quantity;
+        this.price = price;
     }
 
     public int getQuantity() {
@@ -41,5 +43,17 @@ public class OrderLineItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Money getPrice() {
+        return price;
+    }
+
+    public void setPrice(Money price) {
+        this.price = price;
+    }
+
+    public Money getTotal() {
+        return price.multiply(quantity);
     }
 }

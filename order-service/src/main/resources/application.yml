@@ -1,11 +1,31 @@
 spring:
   application:
     name: order-service
+  cloud:
+    stream:
+      bindings:
+        resChangeIn:
+          destination: resChangeEvent
+          group: restaurantGroup
+        orderCreateIn:
+          destination: orderCreateEventIn
+          group: orderCreate
+        orderCreateOut:
+          destination: orderCreateEventOut
+          group: orderCreate
+        orderResCreateIn:
+          destination: orderResCreateEvent
+          group: orderCreate
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 server:
   port: 8091
 eureka:
   client:
-    enabled: false
+    enabled: true
     service-url:
       defaultZone: http://localhost:8761/eureka
-

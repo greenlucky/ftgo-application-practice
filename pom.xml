@@ -16,6 +16,8 @@
         <module>restaurant-service</module>
         <module>order-service</module>
         <module>common-order</module>
+        <module>common-consumer</module>
+        <module>common-account</module>
     </modules>
 
 </project>

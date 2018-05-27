@@ -1,11 +1,52 @@
 spring:
   application:
     name: restaurant-service
+  cloud:
+    stream:
+      bindings:
+        resChangeOut:
+          destination: resChangeEvent
+          group: restaurantGroup
+        orderCreateIn:
+          destination: orderCreateEventOut
+          group: orderRestaurant
+        orderCreateOut:
+          destination: orderCreateEventIn
+          group: orderRestaurant
+        orderResCreateOut:
+          destination: orderResCreateEvent
+          group: orderRestaurant
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+# Database
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=1
+    username: sa
+    password:
+    initialization-mode: always
+# spring data
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
+
 server:
   port: 8090
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
-    enabled: false
+    enabled: true
 

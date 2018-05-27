@@ -1,13 +1,12 @@
-package com.devopslam.ftgo.restaurantservice.domain;
+package com.devopslam.ftgo.restaurantservice.events;
 
-public class CreateRestaurantResponse {
-
+public class RestaurantMessage {
     private String id;
 
-    public CreateRestaurantResponse() {
+    public RestaurantMessage() {
     }
 
-    public CreateRestaurantResponse(String id) {
+    public RestaurantMessage(String id) {
         this.id = id;
     }
 
@@ -21,7 +20,7 @@ public class CreateRestaurantResponse {
 
     @Override
     public String toString() {
-        return "CreateRestaurantResponse{" +
+        return "RestaurantMessage{" +
                 "id='" + id + '\'' +
                 '}';
     }

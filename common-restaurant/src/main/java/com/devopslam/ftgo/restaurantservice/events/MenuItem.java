@@ -1,6 +1,6 @@
 package com.devopslam.ftgo.restaurantservice.events;
 
-import com.devopslam.common.Money;
+import com.devopslam.common.domain.Money;
 
 import javax.persistence.Embeddable;
 

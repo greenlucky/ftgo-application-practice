@@ -1,10 +1,10 @@
 package com.devopslam.ftgo.orderservice.events;
 
 public enum OrderState {
-    CREATING_PENDING,
-    AUTHORIZED,
+    APPROVAL_PENDING,
+    APPROVED,
     REJECTED,
     CANCEL_PENDING,
-    CANCELED,
-    REVISION_PENDING
+    CANCELLED,
+    REVISION_PENDING,
 }

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Restaurant {
 
     @Id
-    @Column(name = "restaurant_id")
+    @Column(name = "id")
     private String id;
 
     @NotNull
@@ -24,7 +24,7 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(String id, @NotNull String name, List<MenuItem> menuItems) {
+    public Restaurant(String id, String name, List<MenuItem> menuItems) {
         this.id = id;
         this.name = name;
         this.menuItems = menuItems;
