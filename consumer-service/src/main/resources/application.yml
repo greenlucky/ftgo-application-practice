@@ -1,0 +1,35 @@
+server:
+  port: 8092
+
+spring:
+  application:
+    name: consumer-service
+  h2:
+    console:
+      path: /h2
+      enabled: true
+  cloud:
+    stream:
+      bindings:
+        orderCreateIn:
+          destination: orderCreateEventOut
+          group: orderConsumer
+        orderCreateOut:
+          destination: orderCreateEventIn
+          group: orderConsumer
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+eureka:
+  client:
+    enabled: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
